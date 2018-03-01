@@ -15,7 +15,7 @@ public class Main {
 
         format = readFromFile(rides, file);
 
-        
+
 
 
     }
