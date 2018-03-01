@@ -1,29 +1,43 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import static java.lang.StrictMath.abs;
 
 public class Main {
     public static void main(String[] args) {
         List<Ride> rides = new ArrayList<>();
+        List<Vehicles> vehicles= new ArrayList<>();
         ProblemFormat format;
+        //String file="b_should_be_easy.in";
         String file="a_example.in";
 
         format = readFromFile(rides, file);
+        createVehicles(vehicles, format.getVehicles());
+        Collections.sort(rides, new MainComparator());
+
+        System.out.println(format);
+        for(Ride elem:rides){
+            System.out.println(elem);
+        }
+
 
 
 
 
     }
 
+    public static void createVehicles(List<Vehicles> vehicles, int num){
+        for(int i=0; i<num; i++){
+            vehicles.add(new Vehicles(i));
+        }
+    }
+
     public static ProblemFormat readFromFile(List<Ride> rides, String file){
         try {
             int rows, columns, fleet, totalRides, bonus, steps;
-            int a, b, x, y, s, t;
+            int a, b, x, y, s, t, id=0;
             FileReader fitxer = new FileReader(file);
             BufferedReader dis = new BufferedReader(fitxer);
             StringTokenizer tokens;
@@ -47,7 +61,8 @@ public class Main {
                         y=Integer.parseInt(tokens.nextToken());
                         s=Integer.parseInt(tokens.nextToken());
                         t=Integer.parseInt(tokens.nextToken());
-                        rides.add(new Ride(a,b,x,y,s,t));
+                        rides.add(new Ride(a,b,x,y,s,t,id));
+                        id++;
                     }
                 }
 
